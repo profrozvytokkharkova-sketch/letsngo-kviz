@@ -160,7 +160,7 @@ input::placeholder{color:#ffffff66}
 /* ---------- QUIZ DATA ---------- */
 const TITLE = "Випускний квіз";
 const SUBTITLE = "12 хвиля Let’s NGO";
-const DUR = 20000;          // 20 секунд на питання
+const DUR = 12000;          // 12 секунд на питання
 const HOLD = 12000;         // скільки показуємо правильну відповідь перед наступним питанням
 const QUESTIONS = [
   {q:"Коли було офіційне відкриття 12 хвилі?", a:["1 жовтня","Перший понеділок жовтня","5 жовтня","Вчора"]},
@@ -171,7 +171,7 @@ const QUESTIONS = [
   {q:"Яка з цих пісень НЕ звучала на «Радіо Let’s NGO»?", a:["Wellboy — Марина","Крихітка Цахес — Ангела, Як Я","Jerry Heil — Додай гучності","Макс Барских — Але чомусь я знову тут"]},
   {q:"Як звати тренерку з воркшопу про брендинг ГО?", a:["Анна Заскальна","Марина Говорухіна","Софія Костенко","Катерина Загребельна"]},
   {q:"Кому з команди Let’s NGO можна написати, щоб замовити пісню?", a:["Анні, комунікаційній менеджерці","Марині, керівниці проєкту","Анні, проєктній асистентці","Олі, ком’юніті менеджерці"]},
-  {q:"Скільки мережувань на хвилі у вас було?", a:["10","1","3","Недостатньо"]},
+  {q:"Скільки мережувань на хвилі у вас було?", a:["1","2","3","4"]},
   {q:"В якій команді було найбільше учасників?", a:["HAND IN HAND UA","ТОЧКА ОПОРИ ВЕТЕРАНА","ПЕРЕБЕРІЯ 42","СПЕЙС ХАБ ЮА"]},
 ];
 const KEY = "5,11,11,10,10,14,12,13,13,19"; // правильні відповіді (закодовано)
@@ -376,7 +376,7 @@ function renderHost(){
       h("div",{class:"ctl"},resetCtl())));
   } else {
     const ids=Object.keys(players).sort((a,b)=>(players[a].t||0)-(players[b].t||0));
-    root.replaceChildren(topBar(`${nQ} питань · 20 секунд`),h("div",{class:"stage"},
+    root.replaceChildren(topBar(`${nQ} питань · ${DUR/1000} секунд`),h("div",{class:"stage"},
       h("div",{class:"lobby"},
         h("div",{},
           h("h1",{},h("span",{class:"pl fill tilt-l"},TITLE.split(" ")[0]),h("span",{class:"pl line tilt-r"},TITLE.split(" ").slice(1).join(" "))),
@@ -459,7 +459,7 @@ function renderPlayer(){
     st=h("div",{class:"pstage"},
       h("div",{style:"display:flex;justify-content:space-between;align-items:center"},
         h("span",{class:"pl fill tilt-l",style:"font-size:13px"},"Питання "+(q+1)+" / "+nQ),
-        h("span",{class:"num",style:"font-weight:900;font-size:22px","data-psec":""},"20")),
+        h("span",{class:"num",style:"font-weight:900;font-size:22px","data-psec":""},String(DUR/1000))),
       h("div",{class:"pbar","data-pbar":""},h("i",{style:"width:100%"})),
       h("p",{class:"pq"},Q.q),
       h("div",{class:"pgrid"+(mine!=null?" done":"")+(closed?" closed":"")},Q.a.map((t,i)=>tile(i,t,{button:true,id:"a"+i,cls:mine===i?"mine":"",disabled:mine!=null||closed,onclick:()=>answer(i)}))),
